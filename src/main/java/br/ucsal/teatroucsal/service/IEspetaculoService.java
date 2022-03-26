@@ -15,6 +15,4 @@ public interface IEspetaculoService {
     //RETORNA ENTIDADE
     List<EspetaculoDTO> listar();
 
-    //RETORNA ENTIDADE
-    List<EspetaculoDTO> listaPorData(String email);
 }
