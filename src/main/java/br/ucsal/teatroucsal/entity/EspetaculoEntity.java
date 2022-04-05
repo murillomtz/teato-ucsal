@@ -18,14 +18,14 @@ public class EspetaculoEntity implements Serializable {
 
     @JsonInclude(Include.NON_NULL)
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(generator = "incrementacao")
+    @GenericGenerator(name = "incrementacao", strategy = "increment")
     @Column(name = "id")
     private Long id;
 
-    @JsonInclude(Include.NON_EMPTY)
+//    @JsonInclude(Include.NON_NULL)
     @Column(name = "valor")
-    private Integer valor;
+    private Double valor;
 
     @JsonInclude(Include.NON_EMPTY)
     @Column(name = "nome")

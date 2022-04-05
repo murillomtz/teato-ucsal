@@ -15,7 +15,7 @@ import java.util.Map;
 @ControllerAdvice
 public class ResourceHandler {
     /**
-     * Quando chamar a exception MateriaException ele dará esse tratamento
+     * Quando chamar a exception GenericException ele dará esse tratamento
      */
     @ExceptionHandler(GenericException.class)
     public ResponseEntity<Response<String>> handlerMateriaException(GenericException m) {

@@ -1,14 +1,13 @@
 package br.ucsal.teatroucsal.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.persistence.Column;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -17,8 +16,8 @@ public class EspetaculoDTO extends RepresentationModel<EspetaculoDTO> {
 
     private Long id;
 
-    @NotBlank(message = "Informe o valor")
-    private Integer valor;
+//    @Size(min = 1 , message = "Informe o valor")
+    private Double valor;
 
     @NotBlank(message = "Informe o nome")
     private String nome;

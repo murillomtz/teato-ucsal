@@ -34,11 +34,14 @@ public class EspetaculoController {
                 cadastrarEspetaculo(espetaculo))
                 .withSelfRel());
 
-        /*response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class)
-                .atualizarMateria(materia)).withRel(HyperLinkConstant.ATUALIZAR.getValor()));*/
+        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class)
+                .consultarEspetaculo(espetaculo.getId())).withRel(HyperLinkConstant.CONSULTAR.getValor()));
 
         response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class)
                 .listarEspetaculo()).withRel(HyperLinkConstant.LISTAR.getValor()));
+
+        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class)
+                .excluirEspetaculo(espetaculo.getId())).withRel(HyperLinkConstant.EXCLUIR.getValor()));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
