@@ -39,11 +39,11 @@ public class EspetaculoService implements IEspetaculoService {
                 throw new GenericException(MensagensConstant.ERRO_ID_INFORMADO.getValor(), HttpStatus.BAD_REQUEST);
             }
 
-            if (this.espetaculoRepository.findById(espetaculoDTO.getId()) != null) {
-
-                throw new GenericException(MensagensConstant.ERRO_SITUACAO_CADASTRADO_ANTERIORMENTE.getValor(),
-                        HttpStatus.BAD_REQUEST);
-            }
+//            if (this.espetaculoRepository.findById(espetaculoDTO.getId()) != null) {
+//
+//                throw new GenericException(MensagensConstant.ERRO_SITUACAO_CADASTRADO_ANTERIORMENTE.getValor(),
+//                        HttpStatus.BAD_REQUEST);
+//            }
 
             return this.cadastrarOuAtualizar(espetaculoDTO);
 
@@ -71,22 +71,6 @@ public class EspetaculoService implements IEspetaculoService {
         }
     }
 
-    @CachePut(key = "#id")
-    @Override
-    public EspetaculoDTO findById(Long id) {
-        try {
-            Optional<EspetaculoEntity> espetaculoOptional = this.espetaculoRepository.findById(id);
-            if (espetaculoOptional.isPresent()) {
-                return this.mapper.map(espetaculoOptional.get(), EspetaculoDTO.class);
-            }
-            throw new GenericException(MensagensConstant.ERRO_SITUACAO_NAO_ENCONTRADO.getValor(), HttpStatus.NOT_FOUND);
-        } catch (GenericException m) {
-            throw m;
-        } catch (Exception e) {
-            throw new GenericException(MensagensConstant.ERRO_GENERICO.getValor(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     @CachePut(unless = "#result.size()<3")
     @Override
     public List<EspetaculoDTO> listar() {
@@ -95,8 +79,8 @@ public class EspetaculoService implements IEspetaculoService {
                     new TypeToken<List<EspetaculoDTO>>() {
                     }.getType());
 
-            espetaculosDTO.forEach(materia -> materia.add(WebMvcLinkBuilder
-                    .linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class).consultarEspetaculo(materia.getId()))
+            espetaculosDTO.forEach(espetaculo -> espetaculo.add(WebMvcLinkBuilder
+                    .linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class).consultarEspetaculo(espetaculo.getId()))
                     .withSelfRel()));
 
             return espetaculosDTO;
@@ -118,4 +102,34 @@ public class EspetaculoService implements IEspetaculoService {
         this.espetaculoRepository.save(espetaculoEntity);
         return Boolean.TRUE;
     }
+
+    @Override
+    public Boolean atualizar(EspetaculoDTO espetaculoDTO) {
+
+        try {
+            this.consultar(espetaculoDTO.getId());
+            return this.cadastrarOuAtualizar(espetaculoDTO);
+        } catch (GenericException m) {
+            throw m;
+        } catch (Exception e) {
+            throw new GenericException(MensagensConstant.ERRO_GENERICO.getValor(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @CachePut(key = "#id")
+    @Override
+    public EspetaculoDTO consultar(Long id) {
+        try {
+            Optional<EspetaculoEntity> espetaculoOptional = this.espetaculoRepository.findById(id);
+            if (espetaculoOptional.isPresent()) {
+                return this.mapper.map(espetaculoOptional.get(), EspetaculoDTO.class);
+            }
+            throw new GenericException(MensagensConstant.ERRO_SITUACAO_NAO_ENCONTRADO.getValor(), HttpStatus.NOT_FOUND);
+        } catch (GenericException m) {
+            throw m;
+        } catch (Exception e) {
+            throw new GenericException(MensagensConstant.ERRO_GENERICO.getValor(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

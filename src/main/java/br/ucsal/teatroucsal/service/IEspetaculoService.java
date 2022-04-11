@@ -6,11 +6,14 @@ import java.util.List;
 
 public interface IEspetaculoService {
 
-    Boolean cadastrar(EspetaculoDTO espetaculoDTO);
+    Boolean atualizar( EspetaculoDTO materia);
+
+    Boolean cadastrar( EspetaculoDTO espetaculoDTO);
 
     Boolean excluir(Long id);
 
-    EspetaculoDTO findById(Long id);
+
+    EspetaculoDTO consultar(Long id);
 
     //RETORNA ENTIDADE
     List<EspetaculoDTO> listar();

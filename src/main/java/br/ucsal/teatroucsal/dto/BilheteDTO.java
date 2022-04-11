@@ -19,5 +19,5 @@ public class BilheteDTO extends RepresentationModel<BilheteDTO> {
     private Long cliente;
 
     @NotBlank(message = "Informe a cadeira")
-    private CadeiraEntity cadeira;
+    private Long cadeira;
 }
