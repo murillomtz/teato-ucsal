@@ -15,9 +15,9 @@ public class BilheteDTO extends RepresentationModel<BilheteDTO> {
 
     private Long id;
 
-    @NotBlank(message = "Informe o cliente")
+    //@NotBlank(message = "Informe o cliente")
     private Long cliente;
 
-    @NotBlank(message = "Informe a cadeira")
+    //@NotBlank(message = "Informe a cadeira")
     private Long cadeira;
 }

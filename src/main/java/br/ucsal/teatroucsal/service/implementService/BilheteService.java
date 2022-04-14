@@ -1,23 +1,19 @@
 package br.ucsal.teatroucsal.service.implementService;
 
 import br.ucsal.teatroucsal.constant.MensagensConstant;
+import br.ucsal.teatroucsal.controller.BilheteController;
 import br.ucsal.teatroucsal.controller.EspetaculoController;
 import br.ucsal.teatroucsal.dto.BilheteDTO;
-import br.ucsal.teatroucsal.dto.EspetaculoDTO;
 import br.ucsal.teatroucsal.entity.BilheteEntity;
 import br.ucsal.teatroucsal.entity.CadeiraEntity;
 import br.ucsal.teatroucsal.entity.ClienteEntity;
-import br.ucsal.teatroucsal.entity.EspetaculoEntity;
 import br.ucsal.teatroucsal.exception.GenericException;
 import br.ucsal.teatroucsal.repository.IBilheteRepository;
 import br.ucsal.teatroucsal.repository.ICadeiraRepository;
 import br.ucsal.teatroucsal.repository.IClienteRepository;
 import br.ucsal.teatroucsal.service.IBilheteService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -64,6 +60,7 @@ public class BilheteService implements IBilheteService {
 
                 throw new GenericException(MensagensConstant.ERRO_ID_INFORMADO.getValor(), HttpStatus.BAD_REQUEST);
             }
+
 
 //            if (this.espetaculoRepository.findById(espetaculoDTO.getId()) != null) {
 //
@@ -115,12 +112,21 @@ public class BilheteService implements IBilheteService {
     @Override
     public List<BilheteDTO> listar() {
         try {
-            List<BilheteDTO> bilhetesDTO = this.mapper.map(this.bilheteRepository.findAll(),
-                    new TypeToken<List<BilheteDTO>>() {
-                    }.getType());
+            List<BilheteEntity> bilheteEntityList = this.bilheteRepository.findAll();
+
+            List<BilheteDTO> bilhetesDTO = new ArrayList<>();
+
+            for (BilheteEntity bilhete : bilheteEntityList) {
+                BilheteDTO bilheteDTO = new BilheteDTO();
+                bilheteDTO.setId(bilhete.getId());
+                bilheteDTO.setCadeira(bilhete.getCadeira().getId());
+                bilheteDTO.setCliente(bilhete.getCliente().getId());
+                bilhetesDTO.add(bilheteDTO);
+            }
+
 
             bilhetesDTO.forEach(bilhete -> bilhete.add(WebMvcLinkBuilder
-                    .linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class).consultarEspetaculo(bilhete.getId()))
+                    .linkTo(WebMvcLinkBuilder.methodOn(BilheteController.class).consultarBilhete(bilhete.getId()))
                     .withSelfRel()));
 
             return bilhetesDTO;
@@ -131,8 +137,8 @@ public class BilheteService implements IBilheteService {
     }
 
     private Boolean cadastrarOuAtualizar(BilheteDTO bilheteDTO) {
-        ClienteEntity clienteEntity;
-        CadeiraEntity cadeiraEntity;
+        ClienteEntity clienteEntity = new ClienteEntity();
+        CadeiraEntity cadeiraEntity = new CadeiraEntity();
 
         BilheteEntity bilheteEntity = new BilheteEntity();
         if (bilheteDTO.getId() != null) {

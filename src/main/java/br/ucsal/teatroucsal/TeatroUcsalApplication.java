@@ -63,24 +63,24 @@ public class TeatroUcsalApplication extends SpringBootServletInitializer impleme
         cliete1.setEndereco("Rua Alagoas");
         cliete1.setIdade(28);
 
-        BilheteEntity bilhete1 = new BilheteEntity();
-        bilhete1.setCliente(cliete1);
+//        BilheteEntity bilhete1 = new BilheteEntity();
+//        bilhete1.setCliente(cliete1);
 
 
         CadeiraEntity cadeira1 = new CadeiraEntity();
         List<EspetaculoEntity> espetaculoList = new ArrayList<>();
-        cadeira1.setBilhete(bilhete1);
+//        cadeira1.setBilhete(bilhete1);
         cadeira1.setEspetaculo(espetaculoList);
         cadeira1.setCusto(20);
         cadeira1.setLocal("a1");
 
         espetaculoList.add(espetaculo1);
-        bilhete1.setCadeira(cadeira1);
-        cliete1.setBilhete(bilhete1);
+//        bilhete1.setCadeira(cadeira1);
+//        cliete1.setBilhete(bilhete1);
 
         espetaculoRepository.save(espetaculo1);
         clienteRepository.save(cliete1);
-        bilheteRepository.save(bilhete1);
+//        bilheteRepository.save(bilhete1);
         cadeiraRepository.save(cadeira1);
 //        EspetaculoDTO espetaculo2 = new EspetaculoDTO();
 //        espetaculo2.setNome("MID - Lacote não é Marca de Ladrão");
