@@ -1,7 +1,5 @@
 package br.ucsal.teatroucsal;
 
-import br.ucsal.teatroucsal.controller.EspetaculoController;
-import br.ucsal.teatroucsal.dto.EspetaculoDTO;
 import br.ucsal.teatroucsal.entity.BilheteEntity;
 import br.ucsal.teatroucsal.entity.CadeiraEntity;
 import br.ucsal.teatroucsal.entity.ClienteEntity;
@@ -10,9 +8,6 @@ import br.ucsal.teatroucsal.repository.IBilheteRepository;
 import br.ucsal.teatroucsal.repository.ICadeiraRepository;
 import br.ucsal.teatroucsal.repository.IClienteRepository;
 import br.ucsal.teatroucsal.repository.IEspetaculoRepository;
-import br.ucsal.teatroucsal.service.IBilheteService;
-import br.ucsal.teatroucsal.service.ICadeiraService;
-import br.ucsal.teatroucsal.service.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -55,36 +50,38 @@ public class TeatroUcsalApplication extends SpringBootServletInitializer impleme
         espetaculo1.setNome("MID - Homens de Preto");
         espetaculo1.setValor(56.00);
 
-
         ClienteEntity cliete1 = new ClienteEntity();
-        cliete1.setCpf("068.795.288-01");
-        cliete1.setEmail("odono@ucsal.edu.br");
         cliete1.setNome("Dono da Porra Toda");
-        cliete1.setEndereco("Rua Alagoas");
+        cliete1.setCpf("068.795.288-01");
         cliete1.setIdade(28);
-
-//        BilheteEntity bilhete1 = new BilheteEntity();
-//        bilhete1.setCliente(cliete1);
-
+        cliete1.setEmail("odono@ucsal.edu.br");
+        cliete1.setEndereco("Rua Alagoas");
 
         CadeiraEntity cadeira1 = new CadeiraEntity();
-        List<EspetaculoEntity> espetaculoList = new ArrayList<>();
-//        cadeira1.setBilhete(bilhete1);
-        cadeira1.setEspetaculo(espetaculoList);
-        cadeira1.setCusto(20);
         cadeira1.setLocal("a1");
+        cadeira1.setCusto(20);
 
+        List<EspetaculoEntity> espetaculoList = new ArrayList<>();
         espetaculoList.add(espetaculo1);
-//        bilhete1.setCadeira(cadeira1);
-//        cliete1.setBilhete(bilhete1);
+        cadeira1.setEspetaculo(espetaculoList);
+
+
+        BilheteEntity bilhete1 = new BilheteEntity();
+        bilhete1.setCliente(cliete1);
+        bilhete1.setCadeira(cadeira1);
+
+        cadeira1.setBilhete(bilhete1);
+        cliete1.setBilhete(bilhete1);
 
         espetaculoRepository.save(espetaculo1);
+        bilheteRepository.save(bilhete1);
         clienteRepository.save(cliete1);
-//        bilheteRepository.save(bilhete1);
         cadeiraRepository.save(cadeira1);
+
+
 //        EspetaculoDTO espetaculo2 = new EspetaculoDTO();
 //        espetaculo2.setNome("MID - Lacote não é Marca de Ladrão");
 //        espetaculo2.setValor(156.00);
-//        espetaculoController.cadastrar(espetaculo2);
+//        espetaculoController.cadastrar(espetaculo2); NAO USAR
     }
 }

@@ -86,7 +86,7 @@ public class BilheteController {
         response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BilheteController.class).excluirBilhete(id))
                 .withRel(HyperLinkConstant.EXCLUIR.getValor()));
         response.add(WebMvcLinkBuilder
-                .linkTo(WebMvcLinkBuilder.methodOn(BilheteController.class).atualizarMateria(bilhete)).
+                .linkTo(WebMvcLinkBuilder.methodOn(BilheteController.class).atualizarBilhete(bilhete)).
                         withRel(HyperLinkConstant.ATUALIZAR.getValor()));
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -120,11 +120,11 @@ public class BilheteController {
 //            @ApiResponse(code = 500, message = "Erro interno no serviço"),
 //    })
     @PutMapping
-    public ResponseEntity<Response<Boolean>> atualizarMateria(@RequestBody BilheteDTO bilhete) {
+    public ResponseEntity<Response<Boolean>> atualizarBilhete(@RequestBody BilheteDTO bilhete) {
         Response<Boolean> response = new Response<>();
         response.setData(this.bilheteService.atualizar(bilhete));
         response.setStatusCode(HttpStatus.OK.value());
-        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BilheteController.class).atualizarMateria(bilhete))
+        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BilheteController.class).atualizarBilhete(bilhete))
                 .withSelfRel());
         response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BilheteController.class).listarBilhetes())
                 .withRel(HyperLinkConstant.LISTAR.getValor()));

@@ -87,7 +87,7 @@ public class EspetaculoController {
         response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class).excluirEspetaculo(id))
                 .withRel(HyperLinkConstant.EXCLUIR.getValor()));
         response.add(WebMvcLinkBuilder
-                .linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class).atualizarMateria(espetaculo)).
+                .linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class).atualizarEspetaculo(espetaculo)).
                         withRel(HyperLinkConstant.ATUALIZAR.getValor()));
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -121,11 +121,11 @@ public class EspetaculoController {
 //            @ApiResponse(code = 500, message = "Erro interno no serviço"),
 //    })
     @PutMapping
-    public ResponseEntity<Response<Boolean>> atualizarMateria(@RequestBody EspetaculoDTO espetaculo) {
+    public ResponseEntity<Response<Boolean>> atualizarEspetaculo(@RequestBody EspetaculoDTO espetaculo) {
         Response<Boolean> response = new Response<>();
         response.setData(this.espetaculoService.atualizar(espetaculo));
         response.setStatusCode(HttpStatus.OK.value());
-        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class).atualizarMateria(espetaculo))
+        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class).atualizarEspetaculo(espetaculo))
                 .withSelfRel());
         response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class).listarEspetaculos())
                 .withRel(HyperLinkConstant.LISTAR.getValor()));
