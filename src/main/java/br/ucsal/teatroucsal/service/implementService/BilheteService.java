@@ -2,7 +2,6 @@ package br.ucsal.teatroucsal.service.implementService;
 
 import br.ucsal.teatroucsal.constant.MensagensConstant;
 import br.ucsal.teatroucsal.controller.BilheteController;
-import br.ucsal.teatroucsal.controller.EspetaculoController;
 import br.ucsal.teatroucsal.dto.BilheteDTO;
 import br.ucsal.teatroucsal.entity.BilheteEntity;
 import br.ucsal.teatroucsal.entity.CadeiraEntity;
@@ -99,8 +98,16 @@ public class BilheteService implements IBilheteService {
         try {
             Optional<BilheteEntity> bilheteOptional = this.bilheteRepository.findById(id);
             if (bilheteOptional.isPresent()) {
-                return this.mapper.map(bilheteOptional.get(), BilheteDTO.class);
+                BilheteDTO bilheteDTO = new BilheteDTO();
+                bilheteDTO.setId(bilheteOptional.get().getId());
+                bilheteDTO.setCliente(bilheteOptional.get().getCliente().getId());
+                bilheteDTO.setNomeCliente(bilheteOptional.get().getCliente().getNome());
+                bilheteDTO.setCadeira(bilheteOptional.get().getCadeira().getId());
+                bilheteDTO.setNumeroCadeira(bilheteOptional.get().getCadeira().getLocal());
+                return bilheteDTO;
             }
+
+
             throw new GenericException(MensagensConstant.ERRO_SITUACAO_NAO_ENCONTRADO.getValor(), HttpStatus.NOT_FOUND);
         } catch (GenericException m) {
             throw m;
@@ -121,6 +128,8 @@ public class BilheteService implements IBilheteService {
                 bilheteDTO.setId(bilhete.getId());
                 bilheteDTO.setCadeira(bilhete.getCadeira().getId());
                 bilheteDTO.setCliente(bilhete.getCliente().getId());
+                bilheteDTO.setNomeCliente(bilhete.getCliente().getNome());                ;
+                bilheteDTO.setNumeroCadeira(bilhete.getCadeira().getLocal());
                 bilhetesDTO.add(bilheteDTO);
             }
 

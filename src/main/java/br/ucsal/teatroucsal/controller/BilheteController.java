@@ -1,14 +1,9 @@
 package br.ucsal.teatroucsal.controller;
 
-import br.ucsal.teatroucsal.config.SwaggerConfig;
 import br.ucsal.teatroucsal.constant.HyperLinkConstant;
 import br.ucsal.teatroucsal.dto.BilheteDTO;
 import br.ucsal.teatroucsal.model.Response;
 import br.ucsal.teatroucsal.service.IBilheteService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Api(tags = SwaggerConfig.BILHETE)
+//@Api(tags = SwaggerConfig.BILHETE)
 @RestController
 @RequestMapping("/bilhete")
 public class BilheteController {
@@ -27,12 +22,12 @@ public class BilheteController {
         this.bilheteService = bilheteService;
     }
 
-    @ApiOperation(value = "Cadastrar um novo bilhete")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Bilhete criado com sucesso"),
-            @ApiResponse(code = 400, message = "Erro na requisição enviada pelo cliente"),
-            @ApiResponse(code = 500, message = "Erro interno no serviço"),
-    })
+//    @ApiOperation(value = "Cadastrar um novo bilhete")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 201, message = "Bilhete criado com sucesso"),
+//            @ApiResponse(code = 400, message = "Erro na requisição enviada pelo cliente"),
+//            @ApiResponse(code = 500, message = "Erro interno no serviço"),
+//    })
     @PostMapping
     public ResponseEntity<Response<Boolean>> cadastrarBilhete(@Valid @RequestBody BilheteDTO bilhete) {
 
@@ -45,24 +40,24 @@ public class BilheteController {
                 cadastrarBilhete(bilhete))
                 .withSelfRel());
 
-        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class)
-                .consultarEspetaculo(bilhete.getId())).withRel(HyperLinkConstant.CONSULTAR.getValor()));
+        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BilheteController.class)
+                .consultarBilhete(bilhete.getId())).withRel(HyperLinkConstant.CONSULTAR.getValor()));
 
-        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class)
-                .listarEspetaculos()).withRel(HyperLinkConstant.LISTAR.getValor()));
+        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BilheteController.class)
+                .listarBilhetes()).withRel(HyperLinkConstant.LISTAR.getValor()));
 
-        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EspetaculoController.class)
-                .excluirEspetaculo(bilhete.getId())).withRel(HyperLinkConstant.EXCLUIR.getValor()));
+        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BilheteController.class)
+                .excluirBilhete(bilhete.getId())).withRel(HyperLinkConstant.EXCLUIR.getValor()));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }
 
-    @ApiOperation(value = "Listar todos os bilhetes cadastrados")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Lista de bilhetes exibida com sucesso"),
-            @ApiResponse(code = 500, message = "Erro interno no serviço"),
-    })
+//    @ApiOperation(value = "Listar todos os bilhetes cadastrados")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Lista de bilhetes exibida com sucesso"),
+//            @ApiResponse(code = 500, message = "Erro interno no serviço"),
+//    })
     @GetMapping
     public ResponseEntity<Response<List<BilheteDTO>>> listarBilhetes() {
         Response<List<BilheteDTO>> response = new Response<>();
@@ -73,12 +68,12 @@ public class BilheteController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @ApiOperation(value = "Consultar bilhete por código")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "bilhete encontrado com sucesso"),
-            @ApiResponse(code = 404, message = "bilhete não encontrado"),
-            @ApiResponse(code = 500, message = "Erro interno no serviço"),
-    })
+//    @ApiOperation(value = "Consultar bilhete por código")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "bilhete encontrado com sucesso"),
+//            @ApiResponse(code = 404, message = "bilhete não encontrado"),
+//            @ApiResponse(code = 500, message = "Erro interno no serviço"),
+//    })
     @GetMapping("/{id}")
     public ResponseEntity<Response<BilheteDTO>> consultarBilhete(@PathVariable Long id) {
         Response<BilheteDTO> response = new Response<>();
@@ -96,12 +91,12 @@ public class BilheteController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @ApiOperation(value = "Excluir bilhete")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "bilhete excluída com sucesso"),
-            @ApiResponse(code = 404, message = "bilhete não encontrada"),
-            @ApiResponse(code = 500, message = "Erro interno no serviço"),
-    })
+//    @ApiOperation(value = "Excluir bilhete")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "bilhete excluída com sucesso"),
+//            @ApiResponse(code = 404, message = "bilhete não encontrada"),
+//            @ApiResponse(code = 500, message = "Erro interno no serviço"),
+//    })
     @DeleteMapping(value = "/{idDelete}")
     public ResponseEntity<Response<Boolean>> excluirBilhete(@PathVariable Long idDelete) {
         Response<Boolean> response = new Response<>();
@@ -117,13 +112,13 @@ public class BilheteController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @ApiOperation(value = "Atualizar bilhete")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "bilhete atualizada com sucesso"),
-            @ApiResponse(code = 400, message = "Erro na requisição enviada pelo cliente"),
-            @ApiResponse(code = 404, message = "bilhete não encontrada"),
-            @ApiResponse(code = 500, message = "Erro interno no serviço"),
-    })
+//    @ApiOperation(value = "Atualizar bilhete")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "bilhete atualizada com sucesso"),
+//            @ApiResponse(code = 400, message = "Erro na requisição enviada pelo cliente"),
+//            @ApiResponse(code = 404, message = "bilhete não encontrada"),
+//            @ApiResponse(code = 500, message = "Erro interno no serviço"),
+//    })
     @PutMapping
     public ResponseEntity<Response<Boolean>> atualizarMateria(@RequestBody BilheteDTO bilhete) {
         Response<Boolean> response = new Response<>();

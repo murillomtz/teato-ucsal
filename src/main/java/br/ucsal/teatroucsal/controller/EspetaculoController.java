@@ -1,14 +1,9 @@
 package br.ucsal.teatroucsal.controller;
 
-import br.ucsal.teatroucsal.config.SwaggerConfig;
 import br.ucsal.teatroucsal.constant.HyperLinkConstant;
 import br.ucsal.teatroucsal.dto.EspetaculoDTO;
 import br.ucsal.teatroucsal.model.Response;
 import br.ucsal.teatroucsal.service.IEspetaculoService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Api(tags = SwaggerConfig.ESPETACULO)
+//@Api(tags = SwaggerConfig.ESPETACULO)
 @RestController
 @RequestMapping("/espetaculo")
 public class EspetaculoController {
@@ -28,12 +23,12 @@ public class EspetaculoController {
     }
 
 
-    @ApiOperation(value = "Cadastrar um novo espetaculo")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Espetaculo criado com sucesso"),
-            @ApiResponse(code = 400, message = "Erro na requisição enviada pelo cliente"),
-            @ApiResponse(code = 500, message = "Erro interno no serviço"),
-    })
+//    @ApiOperation(value = "Cadastrar um novo espetaculo")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 201, message = "Espetaculo criado com sucesso"),
+//            @ApiResponse(code = 400, message = "Erro na requisição enviada pelo cliente"),
+//            @ApiResponse(code = 500, message = "Erro interno no serviço"),
+//    })
     @PostMapping
     public ResponseEntity<Response<Boolean>> cadastrarEspetaculo(@Valid @RequestBody EspetaculoDTO espetaculo) {
 
@@ -59,11 +54,11 @@ public class EspetaculoController {
 
     }
 
-    @ApiOperation(value = "Listar todos os espetaculos cadastrados")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Lista de espetaculos exibida com sucesso"),
-            @ApiResponse(code = 500, message = "Erro interno no serviço"),
-    })
+//    @ApiOperation(value = "Listar todos os espetaculos cadastrados")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Lista de espetaculos exibida com sucesso"),
+//            @ApiResponse(code = 500, message = "Erro interno no serviço"),
+//    })
     @GetMapping
     public ResponseEntity<Response<List<EspetaculoDTO>>> listarEspetaculos() {
         Response<List<EspetaculoDTO>> response = new Response<>();
@@ -74,12 +69,12 @@ public class EspetaculoController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @ApiOperation(value = "Consultar espetaculo por código")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Espetaculo encontrado com sucesso"),
-            @ApiResponse(code = 404, message = "Espetaculo não encontrado"),
-            @ApiResponse(code = 500, message = "Erro interno no serviço"),
-    })
+//    @ApiOperation(value = "Consultar espetaculo por código")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Espetaculo encontrado com sucesso"),
+//            @ApiResponse(code = 404, message = "Espetaculo não encontrado"),
+//            @ApiResponse(code = 500, message = "Erro interno no serviço"),
+//    })
     @GetMapping("/{id}")
     public ResponseEntity<Response<EspetaculoDTO>> consultarEspetaculo(@PathVariable Long id) {
         Response<EspetaculoDTO> response = new Response<>();
@@ -97,12 +92,12 @@ public class EspetaculoController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @ApiOperation(value = "Excluir espetaculo")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Espetaculo excluída com sucesso"),
-            @ApiResponse(code = 404, message = "Espetaculo não encontrada"),
-            @ApiResponse(code = 500, message = "Erro interno no serviço"),
-    })
+//    @ApiOperation(value = "Excluir espetaculo")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Espetaculo excluída com sucesso"),
+//            @ApiResponse(code = 404, message = "Espetaculo não encontrada"),
+//            @ApiResponse(code = 500, message = "Erro interno no serviço"),
+//    })
     @DeleteMapping(value = "/{idDelete}")
     public ResponseEntity<Response<Boolean>> excluirEspetaculo(@PathVariable Long idDelete) {
         Response<Boolean> response = new Response<>();
@@ -118,13 +113,13 @@ public class EspetaculoController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @ApiOperation(value = "Atualizar espetaculo")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Espetaculo atualizada com sucesso"),
-            @ApiResponse(code = 400, message = "Erro na requisição enviada pelo cliente"),
-            @ApiResponse(code = 404, message = "Espetaculo não encontrada"),
-            @ApiResponse(code = 500, message = "Erro interno no serviço"),
-    })
+//    @ApiOperation(value = "Atualizar espetaculo")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Espetaculo atualizada com sucesso"),
+//            @ApiResponse(code = 400, message = "Erro na requisição enviada pelo cliente"),
+//            @ApiResponse(code = 404, message = "Espetaculo não encontrada"),
+//            @ApiResponse(code = 500, message = "Erro interno no serviço"),
+//    })
     @PutMapping
     public ResponseEntity<Response<Boolean>> atualizarMateria(@RequestBody EspetaculoDTO espetaculo) {
         Response<Boolean> response = new Response<>();

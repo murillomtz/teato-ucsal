@@ -18,6 +18,12 @@ public class BilheteDTO extends RepresentationModel<BilheteDTO> {
     //@NotBlank(message = "Informe o cliente")
     private Long cliente;
 
+    //@NotBlank(message = "Informe o cliente")
+    private String nomeCliente;
+
     //@NotBlank(message = "Informe a cadeira")
     private Long cadeira;
+
+    //@NotBlank(message = "Informe o cliente")
+    private String numeroCadeira;
 }

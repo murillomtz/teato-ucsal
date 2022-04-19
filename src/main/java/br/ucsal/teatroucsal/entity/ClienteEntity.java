@@ -44,6 +44,6 @@ public class ClienteEntity implements Serializable {
     @Column(name = "endereco")
     private String endereco;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente")
+    @OneToOne(mappedBy = "cliente")
     private BilheteEntity bilhete;
 }

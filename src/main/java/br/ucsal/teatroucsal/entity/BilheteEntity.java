@@ -21,12 +21,12 @@ public class BilheteEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "cliente_id")
     @JsonIgnore
     private ClienteEntity cliente;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "cadeira_id")
     @JsonIgnore
     private CadeiraEntity cadeira;

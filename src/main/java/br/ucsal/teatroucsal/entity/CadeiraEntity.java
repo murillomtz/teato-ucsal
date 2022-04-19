@@ -30,10 +30,10 @@ public class CadeiraEntity implements Serializable {
     @Column(name = "custo")
     private Integer custo;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER )
     @JoinColumn(name="espetaculo_id")
     private List<EspetaculoEntity> espetaculo;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cadeira")
+    @OneToOne(mappedBy = "cadeira")
     private BilheteEntity bilhete;
 }
