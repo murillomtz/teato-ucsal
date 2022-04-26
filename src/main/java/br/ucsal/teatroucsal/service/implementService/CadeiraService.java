@@ -19,8 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @CacheConfig(cacheNames = "cadeira")
 @Service
@@ -158,7 +160,7 @@ public class CadeiraService implements ICadeiraService {
             cadeiraEntity.setId(cadeiraDTO.getId());
         }
 
-        List<EspetaculoEntity> listEspetaculoEntity = new ArrayList<>();
+        Set<EspetaculoEntity> listEspetaculoEntity = new HashSet<>();
 
         if (cadeiraDTO.getEspetaculos() != null && !cadeiraDTO.getEspetaculos().isEmpty()) {
 
@@ -167,7 +169,7 @@ public class CadeiraService implements ICadeiraService {
                     listEspetaculoEntity.add(this.espetaculoRepository.findById(espetaulo).get());
             });
         }
-        cadeiraEntity.setEspetaculo(listEspetaculoEntity);
+        cadeiraEntity.setEspetaculos(listEspetaculoEntity);
         bilheteEntity = bilheteRepository.findById(cadeiraDTO.getBilhete()).get();
         cadeiraEntity.setBilhete(bilheteEntity);
 

@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.*;
 
@@ -30,5 +31,12 @@ public class EspetaculoEntity implements Serializable {
     @JsonInclude(Include.NON_EMPTY)
     @Column(name = "nome")
     private String nome;
+    
+    @ManyToMany
+    @JoinTable(
+      name = "espetaculo_cadeira", 
+      joinColumns = @JoinColumn(name = "espetaculo_id"), 
+      inverseJoinColumns = @JoinColumn(name = "cadeira_id"))
+    Set<CadeiraEntity> cadeiras;
 
 }

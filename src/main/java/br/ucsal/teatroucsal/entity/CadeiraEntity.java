@@ -7,7 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_cadeira")
@@ -30,9 +30,8 @@ public class CadeiraEntity implements Serializable {
     @Column(name = "custo")
     private Integer custo;
 
-    @ManyToMany(fetch = FetchType.EAGER )
-    @JoinColumn(name="espetaculo_id")
-    private List<EspetaculoEntity> espetaculo;
+    @ManyToMany(mappedBy = "cadeiras")
+    private Set<EspetaculoEntity> espetaculos;
 
     @OneToOne(mappedBy = "cadeira")
     private BilheteEntity bilhete;
